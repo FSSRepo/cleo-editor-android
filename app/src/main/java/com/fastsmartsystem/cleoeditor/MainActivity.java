@@ -403,7 +403,6 @@ public class MainActivity extends AppCompatActivity {
                     os.write(data);
                     is.close();
                     os.close();
-                    data = null;
                 }
             }
         } catch(Exception ignored) {

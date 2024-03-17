@@ -1,6 +1,6 @@
 /*
- * CLEO SCript Java
- * FSSRepo 2023
+ * CLEO Script Java
+ * FSSRepo 2024
  */
 
 package com.fastsmartsystem.cleo;
@@ -18,7 +18,6 @@ public class IDECollector {
 	
 	public void load(String path) {
 		try {
-            // Crear un objeto BufferedReader para leer el archivo
             BufferedReader reader  = new BufferedReader(new FileReader(path));
             String line;
 			boolean collect = false, global_var = false;
@@ -46,7 +45,7 @@ public class IDECollector {
             }
 			reader.close();
         } catch (IOException e) {
-            System.err.println("Error al leer el archivo: " + e.getMessage());
+            e.printStackTrace();
         }
 	}
 

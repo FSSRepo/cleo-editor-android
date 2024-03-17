@@ -1,9 +1,5 @@
 package com.fastsmartsystem.cleoeditor.code;
 
-import android.util.Log;
-
-import com.github.ahmadaghazadeh.editor.processor.utils.Logger;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 

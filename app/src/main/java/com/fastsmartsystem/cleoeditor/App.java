@@ -3,9 +3,7 @@ package com.fastsmartsystem.cleoeditor;
 import android.app.Application;
 
 public class App extends Application {
-
     private Thread.UncaughtExceptionHandler defaultHandler;
-
     public static String dataDirectory;
 
     @Override
@@ -25,8 +23,6 @@ public class App extends Application {
             report.append(arr[i].toString());
             report.append(lineSeperator);
         }
-        int x=0;
         defaultHandler.uncaughtException(thread, e);
     }
-
 }

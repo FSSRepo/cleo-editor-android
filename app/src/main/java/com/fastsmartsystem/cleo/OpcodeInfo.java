@@ -1,6 +1,6 @@
 /*
- * CLEO SCript Java
- * FSSRepo 2023
+ * CLEO Script Java
+ * FSSRepo 2024
  */
 
 package com.fastsmartsystem.cleo;
@@ -120,6 +120,4 @@ public  class OpcodeInfo {
 	public static final int WidgetFlag_type_param = 92;
 	public static final int TouchPoints_type_param = 93;
 	public static final int GameVerInternal_type_param = 94;
-
-
 }

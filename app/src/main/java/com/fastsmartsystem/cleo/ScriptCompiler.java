@@ -1,3 +1,8 @@
+/*
+ * CLEO Script Java
+ * FSSRepo 2024
+ */
+
 package com.fastsmartsystem.cleo;
 
 import com.fastsmartsystem.cleo.compiler.OpcodeParameter;
@@ -38,15 +43,15 @@ public class ScriptCompiler
 
 	public String compile(String text, OutputStream os) {
 		try {
-			// Crear un objeto BufferedReader para leer el archivo
 			if(!processText(text)) {
 				return error;
 			}
+
 			// code to binary
-			// calculate storage
 			if(!processScript()) {
 				return error;
 			}
+
 			// write file
 			saveScript(os);
 		} catch (Exception e) {
@@ -59,12 +64,13 @@ public class ScriptCompiler
 
 	private boolean processScript() {
 		size = 0;
+
 		for(OpcodeProcessed op : opcodes_processed) {
 			String label = labels.get(op.code_address);
 			if(label != null) {
 				labels_addresses.put(label, size);
 			}
-			// System.out.println(size + String.format(": Opcode: 0x%04X", op.id));
+
 			OpcodeCompiled oc = new OpcodeCompiled();
 			oc.id = op.id;
 			size += 2; // opcode id
@@ -198,6 +204,7 @@ public class ScriptCompiler
 					}
 				}
 			}
+
 			// collect arguments
 			if(collectArguments(current, parts[1].replace(current.invert ? "not " : "", ""))) {
 				opcodes_processed.add(current);
@@ -253,17 +260,9 @@ public class ScriptCompiler
 		fwr.finish();
 	}
 
-	private static String getFormat(String input) {
-		Pattern regex = Pattern.compile("\\.cs[\\w]*");
-		Matcher matcher = regex.matcher(input);
-		return matcher.find() ? matcher.group() : "";
-	}
-
 	private static boolean checkFormat(String input, String pattern) {
-		// Creamos el objeto Pattern y Matcher
 		Pattern regex = Pattern.compile(pattern);
 		Matcher matcher = regex.matcher(input);
-		// Realizamos la búsqueda del patrón en el input
 		return matcher.matches();
 	}
 

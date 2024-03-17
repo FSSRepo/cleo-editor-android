@@ -1,10 +1,9 @@
 /*
- * CLEO SCript Java
- * FSSRepo 2023
+ * CLEO Script Java
+ * FSSRepo 2024
  */
 
 package com.fastsmartsystem.cleo;
-import android.util.Log;
 
 import java.io.*;
 import java.util.*;
@@ -23,7 +22,6 @@ public class ScriptDecompiler
 	private ArrayList<String> arguments = new ArrayList<>();
 	private IDECollector ide_collector;
 	private boolean decompiling = false;
-
 	private boolean first_try_unblock = true;
 	private String decompiled = "";
 	
@@ -45,10 +43,12 @@ public class ScriptDecompiler
 		try {
 			// rewind decompiler variables
 			reset(format);
+
 			// load cleo data
 			data = new byte[is.available()];
 			is.read(data);
 			is.close();
+
 			// decompile
 			while(decompiling) {
 				if(offset + 2 > data.length || !readOpcode()) {
@@ -57,6 +57,7 @@ public class ScriptDecompiler
 				readArguments();
 				performDecompile();
 			}
+
 			for(OpcodeDecompiled oc : opcode_decompiled) {
 				if(addresses.indexOf(oc.address) != -1) {
 					decompiled += "\n:" + script_name + "_" + oc.address+"\n";

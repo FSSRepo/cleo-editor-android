@@ -1,6 +1,5 @@
 package com.fastsmartsystem.cleoeditor.code;
 
-import android.util.Log;
 import android.widget.Toast;
 
 import com.fastsmartsystem.cleo.IDECollector;
@@ -38,7 +37,6 @@ public class CodeEngine implements CodeEditor.ICodeEditorTextChange, OnTabClickL
     private static final String pattern_var = "\\d+\\@|[sv][$@]\\d+|\\$\\w+";
     public String format;
     public boolean running = false;
-
     private String latent_opcode;
 
     public CodeEngine(MainActivity app, CodeEditor editor, IDECollector ide, OpcodesLoader scm) {
@@ -48,13 +46,16 @@ public class CodeEngine implements CodeEditor.ICodeEditorTextChange, OnTabClickL
         this.editor.setOnTextChange(this);
         this.editor.tab_listener = this;
         this.processor = editor.getTextProcessor();
+
         suggestions = new CodeSuggestions(processor);
         opcode_stack = new OpcodeStack();
         line_stack = new LineStack();
+
         for(IDECollector.IDEItem item : ide.items) {
             suggestions.add(new SuggestionItem(item.global_var ?
                     SuggestionType.TYPE_CONSTANT : SuggestionType.TYPE_MODIFIER, (!item.global_var ? "#" : "") + item.dff));
         }
+
         suggestions.finish();
     }
 

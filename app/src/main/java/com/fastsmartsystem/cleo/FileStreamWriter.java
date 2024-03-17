@@ -1,6 +1,6 @@
 /*
- * CLEO SCript Java
- * FSSRepo 2023
+ * CLEO Script Java
+ * FSSRepo 2024
  */
 
 package com.fastsmartsystem.cleo;
@@ -15,7 +15,7 @@ public class FileStreamWriter
 			this.out = out;
 		}
 		catch(Exception e){
-			
+			e.printStackTrace();
 		}
 	}
 
@@ -23,7 +23,7 @@ public class FileStreamWriter
 		try{
 			out.write(data);
 		} catch(Exception e) {
-			
+			e.printStackTrace();
 		}
 	}
 
@@ -80,17 +80,16 @@ public class FileStreamWriter
     }
 
     public void writeByte(int values) {
-        write(new byte[]{
+        write(new byte[] {
 				  (byte) (values & 0xFF)
 			  });
     }
 
 	public void finish(){
-		try{
+		try {
 			out.close();
-		}
-		catch(Exception e){
-			
+		} catch (Exception e){
+			e.printStackTrace();
 		}
 	}
 }

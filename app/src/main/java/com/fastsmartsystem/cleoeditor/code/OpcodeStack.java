@@ -1,8 +1,5 @@
 package com.fastsmartsystem.cleoeditor.code;
 
-import com.fastsmartsystem.cleoeditor.code.OpcodeLine;
-import com.github.ahmadaghazadeh.editor.document.suggestions.SuggestionItem;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 

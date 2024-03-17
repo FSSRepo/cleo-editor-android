@@ -9,28 +9,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fastsmartsystem.cleoeditor.R;
-import com.fastsmartsystem.cleoeditor.SearchOpcodeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OpcodeAdapter extends RecyclerView.Adapter<OpcodeAdapter.OpcodeViewHolder> {
-    private List<OpcodeItem> dataList; // Lista original sin filtrar
-    private List<OpcodeItem> filteredDataList; // Lista filtrada que se mostrará
-
+    private List<OpcodeItem> dataList;
+    private List<OpcodeItem> filteredDataList;
     private OnOpcodeItemListener clickListener;
 
     public OpcodeAdapter(List<OpcodeItem> dataList, OnOpcodeItemListener listener) {
         this.dataList = dataList;
-        this.filteredDataList = new ArrayList<>(dataList); // Inicialmente, ambas listas son iguales
+        this.filteredDataList = new ArrayList<>(dataList);
         this.clickListener = listener;
     }
 
-    // Método para realizar el filtrado
     public void filter(String query) {
         filteredDataList.clear();
         if (query.trim().isEmpty()) {
-            filteredDataList.addAll(dataList); // Si no hay consulta, muestra toda la lista
+            filteredDataList.addAll(dataList);
         } else {
             String filterPattern = query.toLowerCase().trim();
             for (OpcodeItem item : dataList) {
@@ -39,7 +36,7 @@ public class OpcodeAdapter extends RecyclerView.Adapter<OpcodeAdapter.OpcodeView
                 }
             }
         }
-        notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
+        notifyDataSetChanged();
     }
 
     @NonNull

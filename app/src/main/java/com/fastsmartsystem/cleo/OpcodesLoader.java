@@ -1,5 +1,9 @@
+/*
+ * CLEO Script Java
+ * FSSRepo 2024
+ */
+
 package com.fastsmartsystem.cleo;
-import android.util.Log;
 
 import java.util.*;
 import java.io.*;
@@ -17,6 +21,7 @@ public class OpcodesLoader
 			is.read(data);
 			is.close();
 			is = null;
+
 			int num_opcodes = readShort();
 			for(int i = 0; i < num_opcodes; i++) {
 				OpcodeInfo info = new OpcodeInfo();
@@ -29,6 +34,7 @@ public class OpcodesLoader
 				info.template = readString(template_len);
 				info.param_count = readByte();
 				info.attributes = readUShort();
+
 				for(int j = 0; j < info.param_count; j++) {
 					OpcodeArgument prm = new OpcodeArgument();
 					int param_name = readByte();
@@ -42,7 +48,7 @@ public class OpcodesLoader
 				ops.put(id, info);
 			}
         } catch (IOException e) {
-            System.err.println("Error al leer el archivo: " + e.getMessage());
+            e.printStackTrace();
         }
 	}
 
@@ -75,11 +81,13 @@ public class OpcodesLoader
 		}
 		return bdata;
 	}
+
 	public byte readByte() {
 		byte val = data[offset];
 		offset++;
 		return val;
 	}
+
 	public int readInt() {
 		int val = (data[offset] & 0xFF) | (data[offset + 1] & 0xFF) << 8 | (data[offset + 2] & 0xFF) << 16 | (data[offset + 3] & 0xFF) << 24;
 		offset += 4;

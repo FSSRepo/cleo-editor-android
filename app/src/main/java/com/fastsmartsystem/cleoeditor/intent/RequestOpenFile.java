@@ -9,8 +9,6 @@ import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.fastsmartsystem.cleoeditor.MainActivity;
-
 public class RequestOpenFile extends ActivityResultContract<Void, Uri> {
     @NonNull
     @Override

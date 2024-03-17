@@ -9,10 +9,6 @@ import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.fastsmartsystem.cleoeditor.MainActivity;
-
-import java.io.OutputStream;
-
 public class RequestSaveFile extends ActivityResultContract<String, Uri> {
 
     @NonNull
