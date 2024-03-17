@@ -1,0 +1,3 @@
+rootProject.name = "cleo-editor-android"
+include ':app'
+include ':editor'

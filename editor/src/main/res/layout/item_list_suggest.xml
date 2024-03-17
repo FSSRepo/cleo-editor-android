@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center|start"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:padding="@dimen/padding_small">
+
+    <RelativeLayout
+        android:id="@+id/code_container"
+        android:layout_width="30dp"
+        android:layout_height="35dp">
+
+        <ImageView
+            android:id="@+id/suggestion_type"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_constant"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="K" />
+    </RelativeLayout>
+
+    <TextView
+        android:paddingStart="4dp"
+        android:paddingLeft="4dp"
+        android:textColor="@color/textDarkPrimary"
+        android:id="@+id/suggestion_title"
+        android:text="test"
+        android:layout_toEndOf="@id/code_container"
+        android:layout_toRightOf="@id/code_container"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/suggestion_height"
+        android:layout_centerVertical="true"
+        android:ellipsize="end"
+        android:gravity="start|center_vertical"
+        android:singleLine="true"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+    <TextView
+        android:textColor="@color/gray"
+        android:id="@+id/suggestion_class"
+        android:layout_toEndOf="@id/suggestion_title"
+        android:layout_toRightOf="@id/suggestion_title"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/suggestion_height"
+        android:layout_centerVertical="true"
+        android:ellipsize="end"
+        android:gravity="start|center_vertical"
+        android:singleLine="true"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+</RelativeLayout>

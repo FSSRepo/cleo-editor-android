@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/main_item"
+        android:title="@string/files">
+        <menu>
+            <item
+                android:id="@+id/new_file"
+                android:icon="@drawable/ic_file_new"
+                android:title="@string/new_file"
+                app:showAsAction="ifRoom"/>
+            <item
+                android:id="@+id/open"
+                android:icon="@drawable/ic_file_open"
+                android:title="@string/open_file"
+                app:showAsAction="ifRoom"/>
+
+            <item
+                android:id="@+id/save"
+                android:icon="@drawable/ic_file_save"
+                android:title="@string/save_file"
+                app:showAsAction="ifRoom"/>
+
+            <item
+                android:id="@+id/search"
+                android:icon="@drawable/ic_search"
+                android:title="@string/search_opcode"
+                app:showAsAction="ifRoom"/>
+        </menu>
+
+    </item>
+    <item
+        android:id="@+id/scripts_item"
+        android:title="CLEO Scripts">
+        <menu>
+            <item
+                android:id="@+id/compile"
+                android:icon="@drawable/ic_compile"
+                android:title="@string/compile"
+                app:showAsAction="ifRoom"/>
+
+            <item
+                android:id="@+id/decompile"
+                android:icon="@drawable/ic_decompile"
+                android:title="@string/decompile"
+                app:showAsAction="ifRoom"/>
+        </menu>
+    </item>
+
+</menu>
