@@ -28,6 +28,8 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Parcelable;
 import androidx.annotation.ColorInt;
@@ -46,6 +48,7 @@ import android.text.TextWatcher;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -55,13 +58,11 @@ import android.view.ViewConfiguration;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Scroller;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.ahmadaghazadeh.editor.R;
 import com.github.ahmadaghazadeh.editor.document.commons.LineObject;
 import com.github.ahmadaghazadeh.editor.document.suggestions.SuggestionAdapter;
-import com.github.ahmadaghazadeh.editor.document.suggestions.SuggestionItem;
-import com.github.ahmadaghazadeh.editor.interfaces.OnScrollChangedListener;
+import com.github.ahmadaghazadeh.editor.document.commons.interfaces.OnScrollChangedListener;
 import com.github.ahmadaghazadeh.editor.manager.TypefaceManager;
 import com.github.ahmadaghazadeh.editor.processor.style.StylePaint;
 import com.github.ahmadaghazadeh.editor.processor.style.StyleSpan;
@@ -1390,29 +1391,40 @@ public class TextProcessor extends AppCompatMultiAutoCompleteTextView implements
      *
      * @param color - цвет Caret'а.
      */
+    public static int SpToPx(float sp, Context context)
+    {
+        return (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, context.getResources().getDisplayMetrics());
+    }
     public void setCursorColor(@ColorInt int color) {
         try {
-            // Get the cursor resource id
-            Field field = TextView.class.getDeclaredField("mCursorDrawableRes");
-            field.setAccessible(true);
-            int drawableResId = field.getInt(this);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//                Log.i("TextProcessor", "gradient drawable");
+//                GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, new int[] { (int)color, color });
+//                gradientDrawable.setSize(SpToPx(2, this.getContext()), (int)this.getTextSize());
+//                this.setTextCursorDrawable(gradientDrawable);
+            } else {
+                // Get the cursor resource id
+                Field field = Build.VERSION.SDK_INT < Build.VERSION_CODES.P ? TextView.class.getDeclaredField("mCursorDrawableRes") : TextView.class.getDeclaredField("mDrawableForCursor");
+                field.setAccessible(true);
+                int drawableResId = field.getInt(this);
 
-            // Get the editor
-            field = TextView.class.getDeclaredField("mEditor");
-            field.setAccessible(true);
-            Object editor = field.get(this);
+                // Get the editor
+                field = TextView.class.getDeclaredField("mEditor");
+                field.setAccessible(true);
+                Object editor = field.get(this);
 
-            // Get the drawable and set a color filter
-            Drawable drawable = ContextCompat.getDrawable(mContext, drawableResId);
-            if (drawable != null) {
-                drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                // Get the drawable and set a color filter
+                Drawable drawable = ContextCompat.getDrawable(mContext, drawableResId);
+                if (drawable != null) {
+                    drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                }
+                Drawable[] drawables = {drawable, drawable};
+
+                // Set the drawables
+                field = editor.getClass().getDeclaredField("mCursorDrawable");
+                field.setAccessible(true);
+                field.set(editor, drawables);
             }
-            Drawable[] drawables = {drawable, drawable};
-
-            // Set the drawables
-            field = editor.getClass().getDeclaredField("mCursorDrawable");
-            field.setAccessible(true);
-            field.set(editor, drawables);
         } catch (Exception e) {
             Logger.error(TAG, e);
         }

@@ -33,7 +33,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.github.ahmadaghazadeh.editor.R;
-import com.github.ahmadaghazadeh.editor.interfaces.OnScrollChangedListener;
+import com.github.ahmadaghazadeh.editor.document.commons.interfaces.OnScrollChangedListener;
 import com.github.ahmadaghazadeh.editor.processor.TextProcessor;
 import com.github.ahmadaghazadeh.editor.processor.style.StylePaint;
 

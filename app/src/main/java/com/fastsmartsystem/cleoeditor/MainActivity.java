@@ -245,32 +245,30 @@ public class MainActivity extends AppCompatActivity {
 
     private void performFunction(int function) {
         this.type_function = function;
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(permissionsAllowed()) {
-                if(file_name == null && (function == COMPILE || function == SAVE_FILE)) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.open_a_file), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(file_name != null && !saved_file && (function == NEW_FILE || function == DECOMPILE || function == OPEN_FILE)) {
-                    showSaveConfirmationDialog(function);
-                    return;
-                }
-                if(function == OPEN_FILE || function == DECOMPILE) {
-                    OpenLauncher.launch(null);
-                } else if(function == SAVE_FILE) {
-                    SaveLauncher.launch(file_name);
-                } else if(function == COMPILE) {
-                    if(engine.format != null) {
-                        SaveLauncher.launch(file_name.replace(".txt", engine.format));
-                    } else {
-                        Toast.makeText(this, getString(R.string.no_cleo_format), Toast.LENGTH_SHORT).show();
-                    }
-                } else if(function == NEW_FILE) {
-                    showNewFileDialog();
-                }
-            } else {
-                requestPermissions(new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE },100);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU || permissionsAllowed() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(file_name == null && (function == COMPILE || function == SAVE_FILE)) {
+                Toast.makeText(getApplicationContext(), getString(R.string.open_a_file), Toast.LENGTH_SHORT).show();
+                return;
             }
+            if(file_name != null && !saved_file && (function == NEW_FILE || function == DECOMPILE || function == OPEN_FILE)) {
+                showSaveConfirmationDialog(function);
+                return;
+            }
+            if(function == OPEN_FILE || function == DECOMPILE) {
+                OpenLauncher.launch(null);
+            } else if(function == SAVE_FILE) {
+                SaveLauncher.launch(file_name);
+            } else if(function == COMPILE) {
+                if(engine.format != null) {
+                    SaveLauncher.launch(file_name.replace(".txt", engine.format));
+                } else {
+                    Toast.makeText(this, getString(R.string.no_cleo_format), Toast.LENGTH_SHORT).show();
+                }
+            } else if(function == NEW_FILE) {
+                showNewFileDialog();
+            }
+        } else {
+            requestPermissions(new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE },100);
         }
     }
 

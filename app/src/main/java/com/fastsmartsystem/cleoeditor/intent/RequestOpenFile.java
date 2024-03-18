@@ -14,6 +14,7 @@ public class RequestOpenFile extends ActivityResultContract<Void, Uri> {
     @Override
     public Intent createIntent(@NonNull Context context, Void input) {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("*/*");
         return Intent.createChooser(intent, "Abrir archivo");
     }

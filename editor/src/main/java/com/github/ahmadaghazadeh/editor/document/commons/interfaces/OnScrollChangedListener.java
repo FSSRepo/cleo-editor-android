@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.github.ahmadaghazadeh.editor.interfaces;
+package com.github.ahmadaghazadeh.editor.document.commons.interfaces;
 
 public interface OnScrollChangedListener {
     void onScrollChanged(int x, int y, int oldx, int oldy);
