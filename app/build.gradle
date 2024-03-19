@@ -3,10 +3,13 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         release {
-            storeFile file('D:\\proyectos\\AndroidProjects\\keystore\\Zmodeler.jks')
-            storePassword 'sgtgo778'
-            keyPassword 'sgtgo778'
-            keyAlias 'stewar'
+            Properties keystoreProps = new Properties()
+            keystoreProps.load(new FileInputStream(file('keystore.config')))
+
+            keyAlias keystoreProps['keyAlias']
+            keyPassword keystoreProps['keyPassword']
+            storePassword keystoreProps['storePassword']
+            storeFile file(keystoreProps['keyPath'])
         }
     }
 
