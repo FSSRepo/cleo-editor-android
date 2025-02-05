@@ -38,7 +38,7 @@ public class ScriptCompiler
 	}
 
 	public boolean hasError() {
-		return error.length() > 0;
+		return !error.isEmpty();
 	}
 
 	public String compile(String text, OutputStream os) {
@@ -87,51 +87,51 @@ public class ScriptCompiler
 				} else if(arg.startsWith("s$")) {
 					param.type = 0xA;
 					size += 2;
-					param.valuei = Integer.parseInt(arg.replace("s$",""));
+					param.value_integer = Integer.parseInt(arg.replace("s$",""));
 				} else if(arg.startsWith("v$")) {
 					param.type = 0x11;
 					size += 2;
-					param.valuei = Integer.parseInt(arg.replace("v$",""));
+					param.value_integer = Integer.parseInt(arg.replace("v$",""));
 				} else if(arg.endsWith("@s")) {
 					param.type = 0xB;
 					size += 2;
-					param.valuei = Integer.parseInt(arg.replace("@s",""));
+					param.value_integer = Integer.parseInt(arg.replace("@s",""));
 				} else if(arg.endsWith("@v")) {
 					param.type = 0x10;
 					size += 2;
-					param.valuei = Integer.parseInt(arg.replace("@v",""));
+					param.value_integer = Integer.parseInt(arg.replace("@v",""));
 				} else if(op.id == 0x00D6) {
 					size += 1;
 					param.type = 0x04;
-					param.valuei = Integer.parseInt(arg);
+					param.value_integer = Integer.parseInt(arg);
 				} else if(checkFormat(arg, "\\d{1,3}@")) {
 					param.type = 0x3;
 					size += 2;
-					param.valuei = Integer.parseInt(arg.replace("@",""));
+					param.value_integer = Integer.parseInt(arg.replace("@",""));
 				} else if(arg.charAt(0) == '$') {
 					param.type = 0x2;
 					size += 2;
 					int fd = ide_collector.getIdByDefinition(arg);
 					if(fd != -1) {
-						param.valuei = fd;
+						param.value_integer = fd;
 					} else {
 						String test = arg.replace("$", "");
 						if(!checkIfInteger(test)) {
 							error = "Line "+line_idx+": invalid global variable '"+arg+"'";
 							return false;
 						}
-						param.valuei =  Integer.parseInt(test);
+						param.value_integer =  Integer.parseInt(test);
 					}
 				} else if(checkIfInteger(arg)) {
-					param.valuei = Integer.parseInt(arg);
-					param.type = (Math.abs(param.valuei) < 128 ? 0x4 :
-							(Math.abs(param.valuei) > 32735 ? 0x1 :
+					param.value_integer = Integer.parseInt(arg);
+					param.type = (Math.abs(param.value_integer) < 128 ? 0x4 :
+							(Math.abs(param.value_integer) > 32735 ? 0x1 :
 									0x5));
 					size += param.type == 0x4 ? 1 : (param.type == 0x5 ? 2 : 4);
 				} else if(checkIfFloat(arg)) {
 					param.type = 0x6;
 					size += 4;
-					param.valuef = Float.parseFloat(arg);
+					param.value_float = Float.parseFloat(arg);
 				} else if(checkFormat(arg, "'([^']*)'")) {
 					param.value = arg.replace("'","");
 					param.type = (byte)(param.value.length() > 8 ? 0xF : 0x9);
@@ -227,7 +227,7 @@ public class ScriptCompiler
 				}
 				switch(param.type) {
 					case 0x1: // int value
-						fwr.writeInt(param.valuei);
+						fwr.writeInt(param.value_integer);
 						break;
 					case 0x2: // global var
 					case 0x3: // local var
@@ -236,13 +236,13 @@ public class ScriptCompiler
 					case 0x10: // global string 16 var
 					case 0x11: // local string 16 var
 					case 0x5: // short value
-						fwr.writeShort(param.valuei);
+						fwr.writeShort(param.value_integer);
 						break;
 					case 0x6: // float value
-						fwr.writeFloat(param.valuef);
+						fwr.writeFloat(param.value_float);
 						break;
 					case 0x4: // byte value
-						fwr.writeByte(param.valuei);
+						fwr.writeByte(param.value_integer);
 						break;
 					case 0x9: // string 8
 						fwr.writeStringFromSize(8, param.value);

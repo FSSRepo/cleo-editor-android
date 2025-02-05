@@ -33,7 +33,6 @@ public class IDECollector {
 				} else if(line.startsWith("end")) {
 					collect = false;
 					global_var = false;
-					continue;
 				} else {
 					String[] parts = line.split(",");
 					IDEItem ide_itm = new IDEItem();
