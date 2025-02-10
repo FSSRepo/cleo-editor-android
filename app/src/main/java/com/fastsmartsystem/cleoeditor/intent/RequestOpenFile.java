@@ -21,7 +21,7 @@ public class RequestOpenFile extends ActivityResultContract<Void, Uri> {
 
     @Override
     public Uri parseResult(int resultCode, @Nullable Intent intent) {
-        if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK && intent != null && intent.getData() != null) {
             return intent.getData();
         } else {
             return null;

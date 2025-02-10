@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">CLEO Editor</string>
     <string name="undo">Deshacer</string>
     <string name="redo">Rehacer</string>
     <string name="code_errors">Código y Errores</string>

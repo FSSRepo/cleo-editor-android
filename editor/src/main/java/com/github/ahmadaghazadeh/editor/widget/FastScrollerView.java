@@ -78,7 +78,7 @@ public class FastScrollerView extends View implements OnScrollChangedListener {
 
             TypedValue colorAccent = new TypedValue();
             getContext().getTheme()
-                    .resolveAttribute(R.attr.colorAccent, colorAccent, true);
+                    .resolveAttribute(R.color.colorAccent, colorAccent, true);
 
             mThumbDrawableNormal.mutate().setColorFilter(colorAccent.data, PorterDuff.Mode.SRC_IN);
             mThumbDrawableDragging.mutate().setColorFilter(colorAccent.data, PorterDuff.Mode.SRC_IN);
@@ -97,7 +97,7 @@ public class FastScrollerView extends View implements OnScrollChangedListener {
 
             TypedValue colorAccent = new TypedValue();
             getContext().getTheme()
-                    .resolveAttribute(R.attr.colorAccent, colorAccent, true);
+                    .resolveAttribute(R.color.colorAccent, colorAccent, true);
 
             mThumbDrawableNormal.mutate().setColorFilter(colorAccent.data, PorterDuff.Mode.SRC_IN);
             mThumbDrawableDragging.mutate().setColorFilter(colorAccent.data, PorterDuff.Mode.SRC_IN);

@@ -37,7 +37,7 @@ import java.util.List;
 public class SymbolAdapter extends RecyclerView.Adapter<SymbolAdapter.ViewHolder> {
 
     private List<Symbol> mList;
-    private ExtendedKeyboard.OnKeyListener mListener;
+    private ExtendedKeyboard.OnKeyListener mListener = null;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -61,7 +61,6 @@ public class SymbolAdapter extends RecyclerView.Adapter<SymbolAdapter.ViewHolder
         return mList.size();
     }
 
-
     public void setListKey(List<Symbol> mList) {
        this. mList = mList;
     }
@@ -70,7 +69,7 @@ public class SymbolAdapter extends RecyclerView.Adapter<SymbolAdapter.ViewHolder
         mListener = listener;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView text;
 

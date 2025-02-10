@@ -217,26 +217,20 @@ public class MainActivity extends AppCompatActivity {
     private void initNavigationView(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 menuItem -> {
-                    switch (menuItem.getItemId()) {
-                        case R.id.new_file:
-                            performFunction(NEW_FILE);
-                            break;
-                        case R.id.open:
-                            performFunction(OPEN_FILE);
-                            break;
-                        case R.id.save:
-                            performFunction(SAVE_FILE);
-                            break;
-                        case R.id.search:
-                            Intent intent = new Intent(MainActivity.this, SearchOpcodeActivity.class);
-                            startActivity(intent);
-                            break;
-                        case R.id.compile:
-                            performFunction(COMPILE);
-                            break;
-                        case R.id.decompile:
-                            performFunction(DECOMPILE);
-                            break;
+                    int itemId = menuItem.getItemId();
+                    if (itemId == R.id.new_file) {
+                        performFunction(NEW_FILE);
+                    } else if (itemId == R.id.open) {
+                        performFunction(OPEN_FILE);
+                    } else if (itemId == R.id.save) {
+                        performFunction(SAVE_FILE);
+                    } else if (itemId == R.id.search) {
+                        Intent intent = new Intent(MainActivity.this, SearchOpcodeActivity.class);
+                        startActivity(intent);
+                    } else if (itemId == R.id.compile) {
+                        performFunction(COMPILE);
+                    } else if (itemId == R.id.decompile) {
+                        performFunction(DECOMPILE);
                     }
                     drawerLayout.closeDrawer(navigationView);
                     return true;

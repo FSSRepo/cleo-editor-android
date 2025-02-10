@@ -237,10 +237,10 @@ public class ScriptDecompiler
 	}
 	
 	public String readString(int len){
-		return cortarnombre(new String(readByteArray(len)));
+		return trim(new String(readByteArray(len)));
 	}
 	
-	private String cortarnombre(String str) {
+	private String trim(String str) {
         int indexOf = str.indexOf(0);
         return indexOf > 0 ? str.substring(0, indexOf) : str;
     }

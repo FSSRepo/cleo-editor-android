@@ -28,7 +28,7 @@ import com.github.ahmadaghazadeh.editor.processor.utils.files.SortMode;
 public class Converter {
 
     public static int dpAsPixels(View view, int dp) {
-        return (int) TypedValue.applyDimension(1, dp, view.getResources().getDisplayMetrics());
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, view.getResources().getDisplayMetrics());
     }
 
     public static int toSortMode(String sortMode) {

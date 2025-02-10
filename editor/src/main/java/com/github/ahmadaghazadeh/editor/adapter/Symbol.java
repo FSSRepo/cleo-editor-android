@@ -3,12 +3,12 @@ package com.github.ahmadaghazadeh.editor.adapter;
 public class Symbol {
     private String showText;
     private String writeText;
-    private int pos;
+    private int position;
 
-    public Symbol(String showText, String writeText, int pos) {
+    public Symbol(String showText, String writeText, int position) {
         this.showText = showText;
         this.writeText = writeText;
-        this.pos = pos;
+        this.position = position;
     }
 
     public String getShowText() {
@@ -19,7 +19,7 @@ public class Symbol {
         return writeText;
     }
 
-    public int getPos() {
-        return pos;
+    public int getPosition() {
+        return position;
     }
 }

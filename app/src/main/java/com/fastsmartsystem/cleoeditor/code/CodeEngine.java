@@ -35,7 +35,7 @@ public class CodeEngine implements CodeEditor.ICodeEditorTextChange, OnTabClickL
     private OpcodeLine if_waiting;
     private static final String pattern_arguments = "[sv][$@]\\d+|\\$\\w+|\\#\\w+|\\@\\w+|\\s\\d+\\@|\\s\\d+\\.\\d+|-[\\d.]+|\\s\\d+|'(.*?)'|\"(.*?)\"";
     private static final String pattern_var = "\\d+\\@|[sv][$@]\\d+|\\$\\w+";
-    public String format;
+    public String format = "";
     public boolean running = false;
     private String latent_opcode;
 

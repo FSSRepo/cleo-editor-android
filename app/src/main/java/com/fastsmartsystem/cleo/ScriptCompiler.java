@@ -27,7 +27,7 @@ public class ScriptCompiler
 	public int line_idx = 0;
 	private int size = 0;
 
-	private class OpcodeCompiled {
+	private static class OpcodeCompiled {
 		public int id = 0;
 		public OpcodeParameter[] params;
 	}
