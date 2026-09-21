@@ -97,7 +97,7 @@ public class SearchOpcodeActivity extends AppCompatActivity implements OnOpcodeI
         TextView tvOpcodeExample = view.findViewById(R.id.tvCodeExample);
         TextView tvOpcodeLink = view.findViewById(R.id.tvGTALink);
         tvOpcodeLink.setPaintFlags(tvOpcodeLink.getPaintFlags() | android.graphics.Paint.UNDERLINE_TEXT_FLAG);
-        tvOpcodeTitle.setText("Opcode ID: "+format_id);
+        tvOpcodeTitle.setText("Opcode ID: " + format_id);
         tvOpcodeInfo.setText(info.description);
         tvOpcodeExample.setText(info.example.length() > 0 ? info.example : getString(R.string.no_example_available));
         ImageView ivClose = view.findViewById(R.id.ivCloseDiag);

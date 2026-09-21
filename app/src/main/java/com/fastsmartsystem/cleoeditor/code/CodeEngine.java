@@ -1,5 +1,6 @@
 package com.fastsmartsystem.cleoeditor.code;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import com.fastsmartsystem.cleo.IDECollector;
@@ -101,6 +102,7 @@ public class CodeEngine implements CodeEditor.ICodeEditorTextChange, OnTabClickL
     }
 
     public void start() {
+        if(running) return;
         running = true;
         new Thread(() -> {
             while(running) {
@@ -140,17 +142,18 @@ public class CodeEngine implements CodeEditor.ICodeEditorTextChange, OnTabClickL
             if(line_idx - 1 >= lines.length) {
                 continue;
             }
-            String line = lines[line_idx - 1];
+            String line = lines[line_idx - 1].trim();
             if(line.length() > 0) {
+                Log.e("TEST","'" + line + "' -> " +line.matches("^[0-9A-Fa-f]{4}:.*$"));
                 if (line.matches("\\{\\$CLEO\\s\\.cs[ais]?\\}")) {
                     format = getFormat(line);
                 }
                 // check label -> code address
                 else if (line.startsWith(":") && line.length() > 1) {
                     processLabel(line);
-                }
-                else if(line.matches("[0-9A-Fa-f]+\\:.*")) {
+                } else if(line.matches("^[0-9A-Fa-f]{4}:.*$")) {
                     String[] parts = line.split(":");
+
                     OpcodeLine opcode_m = opcode_stack.getOpcode(opcode_num);
                     opcode_num++;
                     opcode_m.using = true;

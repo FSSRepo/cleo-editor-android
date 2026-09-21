@@ -101,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.editor_menu, menu);
         this.menu = menu;
+        if (file_name != null) {
+            menu.findItem(R.id.undo).setVisible(true);
+            menu.findItem(R.id.redo).setVisible(true);
+            menu.findItem(R.id.code_errors).setVisible(true);
+        }
+        updateMenuIcon();
         return super.onCreateOptionsMenu(menu);
     }
 
