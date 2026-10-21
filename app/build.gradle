@@ -1,4 +1,6 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+}
 
 android {
     signingConfigs {
@@ -6,40 +8,40 @@ android {
             Properties keystoreProps = new Properties()
             keystoreProps.load(new FileInputStream(file('keystore.config')))
 
-            keyAlias keystoreProps['keyAlias']
-            keyPassword keystoreProps['keyPassword']
-            storePassword keystoreProps['storePassword']
-            storeFile file(keystoreProps['keyPath'])
+            keyAlias = keystoreProps['keyAlias']
+            keyPassword = keystoreProps['keyPassword']
+            storePassword = keystoreProps['storePassword']
+            storeFile = file(keystoreProps['keyPath'])
         }
     }
 
-    namespace 'com.fastsmartsystem.cleoeditor'
-    compileSdk 35
-    buildToolsVersion '36.0.0-rc4'
+    namespace = 'com.fastsmartsystem.cleoeditor'
+    compileSdk = 35
 
     defaultConfig {
-        applicationId "com.fastsmartsystem.cleoeditor"
-        minSdk 21
-        targetSdk 35
-        versionCode 2
-        versionName "1.1"
+        applicationId = "com.fastsmartsystem.cleoeditor"
+        minSdk = 21
+        targetSdk = 35
+        versionCode = 2
+        versionName = "1.1"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            shrinkResources false
+            minifyEnabled = false
+            shrinkResources = false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            signingConfig = signingConfigs.release
         }
     }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
 }
 
