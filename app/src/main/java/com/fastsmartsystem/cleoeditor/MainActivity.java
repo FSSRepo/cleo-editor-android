@@ -147,6 +147,10 @@ public class MainActivity extends AppCompatActivity {
     private void loadOpcodes() {
         String datFile = gameTarget == GAME_PC ? "sa.dat" : "sa_mobile.dat";
         scm_loader = new OpcodesLoader(App.dataDirectory + datFile);
+        if(gameTarget == GAME_PC) {
+            // the PC opcode list has no CLEO opcodes: add them from the .ini that comes with the app
+            scm_loader.loadIni(App.dataDirectory + "SASCM.CLEO.ini");
+        }
     }
 
 

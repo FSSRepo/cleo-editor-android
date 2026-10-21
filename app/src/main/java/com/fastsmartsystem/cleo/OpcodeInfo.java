@@ -13,6 +13,63 @@ public  class OpcodeInfo {
 	public String example;
 	public int attributes;
 	public ArrayList<OpcodeArgument> params = new ArrayList<>();
+	/** Set for opcodes whose argument list ends with a 0x00 byte but that the data file does not flag as variadic. */
+	public boolean variadic = false;
+
+	private static final java.util.regex.Pattern PLACEHOLDER = java.util.regex.Pattern.compile("%(\\d+)([a-zA-Z]?)%");
+	private int[] placeholders;
+	private char[] kinds;
+
+	/** Opcodes with a variable argument list (the list ends with a type byte 0). */
+	public boolean isVariadic() {
+		return variadic || param_count == -1 || (attributes & is_variadic) != 0;
+	}
+
+	private void parseTemplate() {
+		if(placeholders != null) {
+			return;
+		}
+		ArrayList<Integer> order = new ArrayList<>();
+		ArrayList<Character> letters = new ArrayList<>();
+		java.util.regex.Matcher m = PLACEHOLDER.matcher(template == null ? "" : template);
+		while(m.find()) {
+			order.add(Integer.parseInt(m.group(1)) - 1);
+			letters.add(m.group(2).isEmpty() ? ' ' : m.group(2).charAt(0));
+		}
+		placeholders = new int[order.size()];
+		kinds = new char[order.size()];
+		for(int i = 0; i < placeholders.length; i++) {
+			placeholders[i] = order.get(i);
+			kinds[i] = letters.get(i);
+		}
+	}
+
+	/** Parameters named by the template (%1d%, %2p%, ...), in order of appearance. */
+	public int[] placeholders() {
+		parseTemplate();
+		return placeholders;
+	}
+
+	/** Number of parameters covered by the template (highest placeholder index + 1). */
+	public int templateParams() {
+		parseTemplate();
+		int max = 0;
+		for(int p : placeholders) {
+			max = Math.max(max, p + 1);
+		}
+		return max;
+	}
+
+	/** Letter of the placeholder of parameter idx (d, p, h, m, o, s, ...); ' ' if there is none. */
+	public char kindOf(int idx) {
+		parseTemplate();
+		for(int i = 0; i < placeholders.length; i++) {
+			if(placeholders[i] == idx) {
+				return kinds[i];
+			}
+		}
+		return ' ';
+	}
 
 	public static final int is_keyword = 0;
 	public static final int is_branch = 2;

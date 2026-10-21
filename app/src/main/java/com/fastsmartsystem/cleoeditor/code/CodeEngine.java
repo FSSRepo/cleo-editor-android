@@ -148,6 +148,10 @@ public class CodeEngine implements CodeEditor.ICodeEditorTextChange, OnTabClickL
                 if (line.matches("\\{\\$CLEO\\s\\.cs[ais]?\\}")) {
                     format = getFormat(line);
                 }
+                // other directives, e.g. {$VAR name index} written by the decompiler for the variables of a Sanny Builder footer
+                else if (line.startsWith("{")) {
+                    continue;
+                }
                 // check label -> code address
                 else if (line.startsWith(":") && line.length() > 1) {
                     processLabel(line);
